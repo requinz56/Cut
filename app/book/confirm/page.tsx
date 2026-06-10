@@ -14,7 +14,7 @@ import { formatPrice, formatDuration } from '@/lib/format'
 
 export default function ConfirmPage() {
   const router = useRouter()
-  const { draft, provider, service, confirmBooking, resetBooking } = useBooking()
+  const { draft, provider, service, confirmBooking } = useBooking()
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -35,53 +35,57 @@ export default function ConfirmPage() {
 
   return (
     <AppShell showBottomNav={false}>
-      <PageHeader title="אישור הזמנה" />
+      <PageHeader title="אישור תור" />
       <StepIndicator currentStep={4} />
 
       <div className="px-4 pb-6 space-y-4">
         {/* Summary card */}
-        <div className="bg-white rounded-xl border border-surface-border shadow-card overflow-hidden">
+        <div className="bg-white rounded-2xl border border-surface-border/70 shadow-[0_2px_16px_rgba(37,99,235,0.08)] overflow-hidden">
           {/* Provider */}
-          <div className="flex items-center gap-3 p-4 border-b border-surface-border">
-            <div className="relative w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
+          <div className="flex items-center gap-3 p-4 border-b border-surface-border/60">
+            <div className="relative w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 ring-1 ring-surface-border/60">
               <Image src={provider.avatarUrl} alt={provider.businessName} fill className="object-cover" sizes="48px" />
             </div>
             <div>
-              <p className="font-semibold text-text-primary">{provider.businessName}</p>
+              <p className="font-bold text-text-primary">{provider.businessName}</p>
               <div className="flex items-center gap-1.5 mt-0.5">
-                <MapPin size={12} className="text-text-muted" />
+                <MapPin size={11} className="text-text-muted" />
                 <p className="text-xs text-text-muted">{provider.location}</p>
               </div>
             </div>
           </div>
 
           {/* Service */}
-          <div className="p-4 border-b border-surface-border">
+          <div className="px-4 py-3.5 border-b border-surface-border/60 bg-surface/40">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs text-text-muted mb-0.5">שירות</p>
-                <p className="font-medium text-text-primary">{service.name}</p>
-                <p className="text-sm text-text-secondary mt-0.5">
+                <p className="text-[11px] text-text-muted font-medium mb-0.5">שירות נבחר</p>
+                <p className="font-bold text-text-primary text-sm">{service.name}</p>
+                <p className="text-xs text-text-secondary mt-0.5">
                   {formatDuration(service.durationMins)}
                 </p>
               </div>
-              <span className="text-lg font-bold text-blue" dir="ltr">
+              <span className="text-xl font-extrabold text-blue" dir="ltr">
                 {formatPrice(service.priceILS)}
               </span>
             </div>
           </div>
 
           {/* Date & Time */}
-          <div className="p-4 space-y-2.5">
-            <div className="flex items-center gap-2.5">
-              <Calendar size={16} className="text-blue flex-shrink-0" />
-              <span className="text-sm font-medium text-text-primary">
+          <div className="p-4 space-y-3">
+            <div className="flex items-center gap-3">
+              <span className="w-8 h-8 rounded-xl bg-blue-xlight flex items-center justify-center flex-shrink-0">
+                <Calendar size={15} className="text-blue" />
+              </span>
+              <span className="text-sm font-semibold text-text-primary">
                 {formatDateLong(draft.date!)}
               </span>
             </div>
-            <div className="flex items-center gap-2.5">
-              <Clock size={16} className="text-blue flex-shrink-0" />
-              <span className="text-sm font-medium text-text-primary" dir="ltr">
+            <div className="flex items-center gap-3">
+              <span className="w-8 h-8 rounded-xl bg-blue-xlight flex items-center justify-center flex-shrink-0">
+                <Clock size={15} className="text-blue" />
+              </span>
+              <span className="text-sm font-semibold text-text-primary" dir="ltr">
                 {draft.time}
               </span>
             </div>
@@ -89,7 +93,7 @@ export default function ConfirmPage() {
         </div>
 
         {/* Policy note */}
-        <p className="text-xs text-text-muted text-center px-2 leading-relaxed">
+        <p className="text-[11px] text-text-muted text-center px-4 leading-relaxed bg-surface/60 rounded-xl py-2.5 border border-surface-border/50">
           ביטול עד 24 שעות לפני התור ללא חיוב. לאחר מכן עלולה להיגבות עמלת ביטול.
         </p>
 
@@ -101,11 +105,11 @@ export default function ConfirmPage() {
           loading={loading}
           onClick={handleConfirm}
         >
-          אשר הזמנה
+          אשר תור
         </Button>
 
         <Button variant="ghost" size="md" fullWidth onClick={() => router.back()}>
-          חזור ושנה
+          חזרה ועריכה
         </Button>
       </div>
     </AppShell>

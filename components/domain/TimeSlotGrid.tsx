@@ -12,7 +12,7 @@ export default function TimeSlotGrid({ slots, selectedTime, onSelectTime }: Time
   if (slots.length === 0) {
     return (
       <p className="text-sm text-text-muted text-center py-6">
-        אין זמנים פנויים ביום זה
+        אין שעות פנויות ביום זה
       </p>
     )
   }
@@ -27,12 +27,12 @@ export default function TimeSlotGrid({ slots, selectedTime, onSelectTime }: Time
             onClick={() => slot.available && onSelectTime(slot.time)}
             disabled={!slot.available}
             className={[
-              'py-2.5 rounded-md text-sm font-medium transition-all duration-100 tap-highlight-none',
+              'py-2.5 rounded-xl text-xs font-semibold transition-all duration-150 tap-highlight-none',
               slot.available
                 ? isSelected
-                  ? 'bg-blue text-white shadow-sm'
-                  : 'bg-surface border border-surface-border text-text-primary hover:border-blue hover:text-blue'
-                : 'bg-surface-border/30 text-text-muted cursor-not-allowed line-through',
+                  ? 'bg-blue text-white shadow-[0_2px_8px_rgba(37,99,235,0.35)] scale-[1.02]'
+                  : 'bg-white border border-surface-border text-text-primary hover:border-blue/50 hover:bg-blue-xlight hover:text-blue'
+                : 'bg-surface-border/20 text-text-muted/50 cursor-not-allowed line-through decoration-text-muted/30',
             ].join(' ')}
             dir="ltr"
           >

@@ -27,38 +27,38 @@ export default function BookingSuccessPage() {
 
   return (
     <AppShell showBottomNav={false}>
-      <div className="flex flex-col items-center px-6 pt-16 pb-8 text-center">
+      <div className="flex flex-col items-center px-6 pt-14 pb-8 text-center">
         {/* Success icon */}
-        <div className="w-20 h-20 rounded-full bg-green-50 flex items-center justify-center mb-5">
-          <CheckCircle size={40} className="text-status-confirmed" />
+        <div className="w-20 h-20 rounded-full bg-green-50 ring-8 ring-green-50/60 flex items-center justify-center mb-6">
+          <CheckCircle size={42} className="text-status-confirmed" strokeWidth={1.75} />
         </div>
 
-        <h1 className="text-2xl font-bold text-text-primary mb-2">ההזמנה אושרה!</h1>
-        <p className="text-text-secondary leading-relaxed mb-8">
-          התור שלך אושר בהצלחה. נשלח לך תזכורת יום לפני התור.
+        <h1 className="text-2xl font-extrabold text-text-primary mb-2">התור אושר!</h1>
+        <p className="text-sm text-text-secondary leading-relaxed mb-7 max-w-[240px]">
+          התור שלך נקבע בהצלחה. נשלח לך תזכורת 24 שעות לפני.
         </p>
 
         {/* Summary */}
-        <div className="w-full bg-surface rounded-xl border border-surface-border p-4 mb-8 space-y-3 text-start">
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-text-muted">עסק</span>
-            <span className="text-sm font-medium text-text-primary">{provider.businessName}</span>
+        <div className="w-full bg-white rounded-2xl border border-surface-border/70 shadow-[0_2px_16px_rgba(37,99,235,0.07)] overflow-hidden mb-7 text-start">
+          <div className="px-4 py-3 border-b border-surface-border/60 flex items-center justify-between">
+            <span className="text-xs text-text-muted font-medium">עסק</span>
+            <span className="text-sm font-bold text-text-primary">{provider.businessName}</span>
           </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-text-muted">שירות</span>
-            <span className="text-sm font-medium text-text-primary">{service.name}</span>
+          <div className="px-4 py-3 border-b border-surface-border/60 flex items-center justify-between">
+            <span className="text-xs text-text-muted font-medium">שירות</span>
+            <span className="text-sm font-semibold text-text-primary">{service.name}</span>
           </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-text-muted">תאריך</span>
-            <span className="text-sm font-medium text-text-primary">{formatDateLong(draft.date!)}</span>
+          <div className="px-4 py-3 border-b border-surface-border/60 flex items-center justify-between">
+            <span className="text-xs text-text-muted font-medium">תאריך</span>
+            <span className="text-sm font-semibold text-text-primary">{formatDateLong(draft.date!)}</span>
           </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-text-muted">שעה</span>
-            <span className="text-sm font-medium text-text-primary" dir="ltr">{draft.time}</span>
+          <div className="px-4 py-3 border-b border-surface-border/60 flex items-center justify-between">
+            <span className="text-xs text-text-muted font-medium">שעה</span>
+            <span className="text-sm font-semibold text-text-primary" dir="ltr">{draft.time}</span>
           </div>
-          <div className="flex items-center justify-between border-t border-surface-border pt-3">
-            <span className="text-sm font-semibold text-text-primary">סה״כ לתשלום</span>
-            <span className="text-base font-bold text-blue" dir="ltr">{formatPrice(service.priceILS)}</span>
+          <div className="px-4 py-3.5 bg-blue-xlight flex items-center justify-between">
+            <span className="text-sm font-bold text-text-primary">סה״כ לתשלום</span>
+            <span className="text-lg font-extrabold text-blue" dir="ltr">{formatPrice(service.priceILS)}</span>
           </div>
         </div>
 
@@ -80,7 +80,7 @@ export default function BookingSuccessPage() {
             startIcon={<Bell size={16} />}
             onClick={() => { resetBooking(); router.push('/notifications') }}
           >
-            הגדרת תזכורת
+            קבע תזכורת
           </Button>
           <Button variant="ghost" size="md" fullWidth onClick={goHome}>
             חזרה לדף הבית

@@ -33,8 +33,8 @@ export default function PageHeader({
   return (
     <header
       className={[
-        'flex items-center justify-between px-4 py-4 sticky top-0 z-30',
-        transparent ? 'bg-transparent' : 'bg-white/95 border-b border-surface-border backdrop-blur-sm',
+        'flex items-center justify-between px-4 py-3.5 sticky top-0 z-30',
+        transparent ? 'bg-transparent' : 'bg-white border-b border-surface-border/80',
         className,
       ]
         .filter(Boolean)
@@ -44,18 +44,18 @@ export default function PageHeader({
         {showBack && (
           <button
             onClick={handleBack}
-            className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full bg-surface border border-surface-border shadow-sm hover:bg-blue-light hover:border-blue/30 transition-all tap-highlight-none"
+            className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-xl bg-surface border border-surface-border hover:bg-blue-xlight hover:border-blue/30 transition-all tap-highlight-none"
             aria-label="חזרה"
           >
-            <ChevronRight size={22} className="text-blue" />
+            <ChevronRight size={20} className="text-blue" strokeWidth={2.5} />
           </button>
         )}
-        <h1 className="text-lg font-extrabold text-text-primary truncate">{title}</h1>
+        <h1 className="text-base font-extrabold text-text-primary truncate">{title}</h1>
       </div>
       {action && (
         <button
           onClick={action.onClick}
-          className="flex-shrink-0 text-sm font-medium text-blue hover:text-blue-dark transition-colors tap-highlight-none ms-3"
+          className="flex-shrink-0 text-sm font-semibold text-blue hover:text-blue-dark transition-colors tap-highlight-none ms-3"
         >
           {action.label}
         </button>

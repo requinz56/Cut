@@ -18,11 +18,11 @@ export default function StaffCard({ staff, onEdit, onToggle, onRemove }: StaffCa
 
   return (
     <div className={[
-      'bg-white rounded-lg border border-surface-border shadow-card p-4',
-      isRemoved ? 'opacity-60' : '',
+      'bg-white rounded-2xl border border-surface-border/70 shadow-[0_1px_6px_rgba(37,99,235,0.05)] p-4',
+      isRemoved ? 'opacity-55' : '',
     ].join(' ')}>
       <div className="flex items-center gap-3">
-        <div className="relative w-11 h-11 rounded-full overflow-hidden flex-shrink-0 bg-blue-light">
+        <div className="relative w-11 h-11 rounded-full overflow-hidden flex-shrink-0 bg-blue-xlight ring-2 ring-white shadow-sm">
           {staff.avatarUrl ? (
             <Image
               src={staff.avatarUrl}
@@ -32,17 +32,17 @@ export default function StaffCard({ staff, onEdit, onToggle, onRemove }: StaffCa
               sizes="44px"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-blue font-semibold text-base">
+            <div className="w-full h-full flex items-center justify-center text-blue font-bold text-base">
               {staff.name.charAt(0)}
             </div>
           )}
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-0.5">
-            <span className="font-semibold text-text-primary text-sm">{staff.name}</span>
+            <span className="font-bold text-text-primary text-sm">{staff.name}</span>
             <StatusBadge status={staff.status} size="sm" />
           </div>
-          <p className="text-xs text-text-secondary">{staff.role}</p>
+          <p className="text-xs text-text-secondary font-medium">{staff.role}</p>
           <p className="text-xs text-text-muted mt-0.5" dir="ltr">{staff.phone}</p>
         </div>
         {!isRemoved && (
@@ -50,16 +50,16 @@ export default function StaffCard({ staff, onEdit, onToggle, onRemove }: StaffCa
             {onEdit && (
               <button
                 onClick={onEdit}
-                className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface transition-colors tap-highlight-none text-text-muted hover:text-blue"
+                className="w-8 h-8 flex items-center justify-center rounded-xl border border-surface-border hover:bg-blue-xlight hover:border-blue/30 transition-all tap-highlight-none text-text-muted hover:text-blue"
                 aria-label="עריכה"
               >
-                <Edit2 size={15} />
+                <Edit2 size={14} />
               </button>
             )}
             {onToggle && !isRemoved && (
               <button
                 onClick={onToggle}
-                className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface transition-colors tap-highlight-none text-text-muted hover:text-blue"
+                className="w-8 h-8 flex items-center justify-center rounded-xl border border-surface-border hover:bg-blue-xlight hover:border-blue/30 transition-all tap-highlight-none text-text-muted hover:text-blue"
                 aria-label={isActive ? 'השבת' : 'הפעל'}
               >
                 {isActive ? <ToggleRight size={16} className="text-status-active" /> : <ToggleLeft size={16} />}
@@ -68,10 +68,10 @@ export default function StaffCard({ staff, onEdit, onToggle, onRemove }: StaffCa
             {onRemove && !staff.hasBookingHistory && (
               <button
                 onClick={onRemove}
-                className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-red-50 transition-colors tap-highlight-none text-text-muted hover:text-status-cancelled"
+                className="w-8 h-8 flex items-center justify-center rounded-xl border border-surface-border hover:bg-red-50 hover:border-red-200 transition-all tap-highlight-none text-text-muted hover:text-status-cancelled"
                 aria-label="הסר"
               >
-                <Trash2 size={15} />
+                <Trash2 size={14} />
               </button>
             )}
           </div>

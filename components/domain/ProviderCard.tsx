@@ -26,20 +26,20 @@ export default function ProviderCard({
     return (
       <div
         onClick={onClick}
-        className="bg-white rounded-xl border border-surface-border border-e-2 border-e-blue shadow-card flex gap-3 p-3.5 cursor-pointer active:scale-[0.99] transition-transform tap-highlight-none"
+        className="bg-white rounded-2xl border border-surface-border/70 shadow-[0_2px_12px_rgba(37,99,235,0.07)] flex gap-3 p-3.5 cursor-pointer active:scale-[0.985] transition-transform tap-highlight-none"
       >
-        <div className="relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+        <div className="relative w-[72px] h-[72px] rounded-xl overflow-hidden flex-shrink-0 ring-1 ring-surface-border/60">
           <Image
             src={provider.avatarUrl}
             alt={provider.businessName}
             fill
             className="object-cover"
-            sizes="80px"
+            sizes="72px"
           />
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-xs text-blue font-semibold mb-0.5">{category?.label}</p>
-          <h3 className="font-semibold text-text-primary text-sm leading-tight mb-1">
+          <p className="text-[11px] text-blue font-bold uppercase tracking-[0] mb-0.5 opacity-80">{category?.label}</p>
+          <h3 className="font-bold text-text-primary text-sm leading-tight mb-1">
             {provider.businessName}
           </h3>
           <StarRating rating={provider.rating} reviewCount={provider.reviewCount} size={12} />
@@ -49,21 +49,21 @@ export default function ProviderCard({
               <p className="text-xs text-text-muted truncate">{provider.location}</p>
             </div>
             {provider.isOpenNow && (
-              <span className="flex items-center gap-1 text-xs font-semibold text-status-confirmed flex-shrink-0">
+              <span className="flex items-center gap-1 text-[11px] font-semibold text-status-confirmed flex-shrink-0">
                 <span className="w-1.5 h-1.5 rounded-full bg-status-confirmed inline-block" />
-                פתוח עכשיו
+                פתוח
               </span>
             )}
           </div>
         </div>
-        <div className="flex flex-col items-end justify-between flex-shrink-0">
-          <span className="text-sm font-semibold text-text-primary" dir="ltr">
+        <div className="flex flex-col items-end justify-between flex-shrink-0 gap-2">
+          <span className="text-xs font-semibold text-text-muted" dir="ltr">
             מ-{formatPrice(provider.priceFrom)}
           </span>
           {onBook && (
             <button
               onClick={(e) => { e.stopPropagation(); onBook(); }}
-              className="text-xs font-semibold text-white bg-gradient-to-b from-blue-accent to-blue px-3 py-1.5 rounded-full tap-highlight-none hover:from-blue hover:to-blue-dark transition-all"
+              className="text-xs font-bold text-white bg-blue px-3 py-1.5 rounded-xl tap-highlight-none hover:bg-blue-dark transition-colors shadow-sm"
             >
               הזמן
             </button>
@@ -76,9 +76,9 @@ export default function ProviderCard({
   return (
     <div
       onClick={onClick}
-      className="bg-white rounded-xl border border-surface-border shadow-card overflow-hidden cursor-pointer active:scale-[0.99] transition-transform tap-highlight-none"
+      className="bg-white rounded-2xl border border-surface-border/70 shadow-[0_2px_12px_rgba(37,99,235,0.07)] overflow-hidden cursor-pointer active:scale-[0.985] transition-transform tap-highlight-none"
     >
-      <div className="relative h-44 w-full">
+      <div className="relative h-40 w-full">
         <Image
           src={provider.coverUrl}
           alt={provider.businessName}
@@ -86,24 +86,32 @@ export default function ProviderCard({
           className="object-cover"
           sizes="(max-width: 430px) 50vw, 215px"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent" />
+        {provider.isOpenNow && (
+          <div className="absolute top-2.5 start-2.5">
+            <span className="flex items-center gap-1 text-[10px] font-bold text-white bg-status-confirmed/90 px-1.5 py-0.5 rounded-full">
+              <span className="w-1 h-1 rounded-full bg-white inline-block" />
+              פתוח
+            </span>
+          </div>
+        )}
         <div className="absolute bottom-0 inset-x-0 p-3">
-          <p className="text-xs text-white/75 font-medium mb-0.5">{category?.label}</p>
+          <p className="text-[10px] text-white/70 font-semibold mb-0.5">{category?.label}</p>
           <h3 className="font-bold text-white text-sm leading-tight">{provider.businessName}</h3>
         </div>
       </div>
       <div className="p-3 pt-2.5">
         <StarRating rating={provider.rating} reviewCount={provider.reviewCount} size={12} />
         <div className="flex items-center justify-between mt-2">
-          <span className="text-sm font-semibold text-text-primary" dir="ltr">
+          <span className="text-xs font-semibold text-text-muted" dir="ltr">
             מ-{formatPrice(provider.priceFrom)}
           </span>
           {onBook && (
             <button
               onClick={(e) => { e.stopPropagation(); onBook(); }}
-              className="text-xs font-semibold text-white bg-gradient-to-b from-blue-accent to-blue px-3 py-1.5 rounded-full tap-highlight-none hover:from-blue hover:to-blue-dark transition-all"
+              className="text-xs font-bold text-white bg-blue px-3 py-1.5 rounded-xl tap-highlight-none hover:bg-blue-dark transition-colors shadow-sm"
             >
-              הזמן
+              הזמן תור
             </button>
           )}
         </div>

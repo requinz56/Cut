@@ -1,14 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import { Plus, X } from 'lucide-react'
+import { X } from 'lucide-react'
 import AppShell from '@/components/layout/AppShell'
 import BottomNav from '@/components/layout/BottomNav'
 import PageHeader from '@/components/layout/PageHeader'
 import StaffCard from '@/components/domain/StaffCard'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
-import Select from '@/components/ui/Select'
 import { STAFF_MEMBERS } from '@/lib/mock-data'
 import type { StaffMember, StaffStatus } from '@/types'
 
@@ -70,11 +69,11 @@ export default function StaffPage() {
 
       {/* Add form */}
       {showAdd && (
-        <div className="mx-4 mb-4 bg-blue-light rounded-xl p-4 border border-blue/20">
+        <div className="mx-4 mb-4 bg-white rounded-2xl p-4 border border-blue/20 shadow-[0_2px_12px_rgba(37,99,235,0.09)]">
           <div className="flex items-center justify-between mb-3">
-            <p className="font-semibold text-text-primary text-sm">הוספת איש צוות</p>
-            <button type="button" onClick={() => setShowAdd(false)} aria-label="סגור" className="tap-highlight-none text-text-muted hover:text-text-primary">
-              <X size={18} />
+            <p className="font-bold text-text-primary text-sm">הוספת עובד</p>
+            <button type="button" onClick={() => setShowAdd(false)} aria-label="סגור" className="tap-highlight-none w-7 h-7 flex items-center justify-center rounded-lg bg-surface hover:bg-red-50 hover:text-status-cancelled transition-colors text-text-muted">
+              <X size={15} />
             </button>
           </div>
           <div className="space-y-3">
@@ -82,7 +81,7 @@ export default function StaffPage() {
             <Input label="תפקיד" value={newRole} onChange={setNewRole} placeholder="ספר" />
             <Input label="טלפון" value={newPhone} onChange={setNewPhone} type="tel" placeholder="050-000-0000" />
             <Button variant="primary" size="md" fullWidth onClick={handleAdd}>
-              הוסף לצוות
+              הוסף עובד
             </Button>
           </div>
         </div>
@@ -100,7 +99,7 @@ export default function StaffPage() {
             />
             {editingId === member.id && (
               <div className="bg-surface border-x border-b border-surface-border rounded-b-xl px-4 py-3 -mt-1 space-y-2">
-                <p className="text-xs font-medium text-text-muted">שנה סטטוס</p>
+                <p className="text-xs font-medium text-text-muted">שינוי מצב</p>
                 {(['active', 'inactive'] as StaffStatus[]).map((s) => (
                   <button
                     key={s}

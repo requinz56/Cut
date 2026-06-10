@@ -31,7 +31,7 @@ export default function WriteReviewPage() {
         <div className="flex flex-col items-center justify-center min-h-64 px-6 text-center">
           <span className="text-4xl mb-3">⭐</span>
           <h2 className="text-lg font-bold text-text-primary mb-1">תודה על הביקורת!</h2>
-          <p className="text-sm text-text-muted">הביקורת שלך עזרה לאחרים לבחור.</p>
+          <p className="text-sm text-text-muted">הביקורת שלך עוזרת לאחרים לבחור.</p>
         </div>
       </AppShell>
     )

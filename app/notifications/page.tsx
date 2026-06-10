@@ -53,7 +53,7 @@ export default function NotificationsPage() {
         {notifications.length === 0 ? (
           <div className="flex flex-col items-center py-16 text-center px-4">
             <Bell size={36} className="text-text-muted mb-3" />
-            <p className="font-medium text-text-primary">אין התראות</p>
+            <p className="font-medium text-text-primary">אין התראות חדשות</p>
           </div>
         ) : (
           notifications.map((notif) => (

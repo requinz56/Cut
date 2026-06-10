@@ -1,0 +1,93 @@
+<h2>איך כותרות העמוד צריכות להיראות?</h2>
+<p class="subtitle">Page headers set the visual tone for every inner screen (appointments, search, notifications, etc.)</p>
+
+<style>
+  .screen-demo { border-radius: 14px; overflow: hidden; border: 1px solid #E2EAFF; margin-top: 8px; font-family: 'Segoe UI', sans-serif; direction: rtl; }
+  .screen-body { background: #F4F8FF; height: 90px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .mock-card { background: #fff; border-radius: 10px; height: 38px; box-shadow: 0 2px 8px rgba(27,79,216,0.08); }
+
+  /* Option A - Simple white header */
+  .header-a { background: #fff; border-bottom: 1px solid #E2EAFF; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; }
+  .header-a h3 { margin: 0; font-size: 17px; font-weight: 700; color: #0B1629; }
+  .header-a .back { width: 32px; height: 32px; border-radius: 50%; background: #F4F8FF; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #1B4FD8; }
+
+  /* Option B - Soft blue-tinted header */
+  .header-b { background: linear-gradient(160deg, #EFF6FF 0%, #fff 100%); border-bottom: 1px solid #E2EAFF; padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 2px; }
+  .header-b-top { display: flex; align-items: center; justify-content: space-between; }
+  .header-b h3 { margin: 0; font-size: 18px; font-weight: 800; color: #0B1629; }
+  .header-b p { margin: 0; font-size: 12px; color: #1B4FD8; font-weight: 500; }
+  .header-b .back { width: 32px; height: 32px; border-radius: 50%; background: #fff; border: 1px solid #E2EAFF; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #475569; }
+
+  /* Option C - Solid blue banner */
+  .header-c { background: linear-gradient(150deg, #0F2FA8, #1B4FD8); padding: 14px 16px 20px; display: flex; flex-direction: column; gap: 2px; }
+  .header-c-top { display: flex; align-items: center; justify-content: space-between; }
+  .header-c h3 { margin: 0; font-size: 18px; font-weight: 800; color: #fff; }
+  .header-c p { margin: 0; font-size: 12px; color: rgba(255,255,255,0.7); }
+  .header-c .back { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 14px; color: #fff; }
+  .overlap-body { background: #F4F8FF; height: 80px; padding: 0 16px; margin-top: -8px; border-radius: 16px 16px 0 0; display: flex; flex-direction: column; gap: 8px; padding-top: 16px; }
+</style>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>כותרת לבנה נקייה</h3>
+      <p>פשוט, ברור, הכי מינימלי — רוב האפליקציות הישראליות</p>
+      <div class="screen-demo" style="pointer-events:none">
+        <div class="header-a">
+          <div class="back">›</div>
+          <h3>התורים שלי</h3>
+          <div style="width:32px"></div>
+        </div>
+        <div class="screen-body">
+          <div class="mock-card"></div>
+          <div class="mock-card"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>כותרת עם גוון כחול עדין</h3>
+      <p>גרדיאנט לבן-כחול עדין + כתוביות — תחושת עומק בלי להכביד</p>
+      <div class="screen-demo" style="pointer-events:none">
+        <div class="header-b">
+          <div class="header-b-top">
+            <div class="back">‹</div>
+            <h3>התורים שלי</h3>
+            <div style="width:32px"></div>
+          </div>
+          <p style="text-align:center">3 תורים קרובים</p>
+        </div>
+        <div class="screen-body">
+          <div class="mock-card"></div>
+          <div class="mock-card"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>באנר כחול מלא + הפרדה</h3>
+      <p>כותרת כחולה בולטת עם תוכן לבן שמחליק מתחת — דומה לדף הבית</p>
+      <div class="screen-demo" style="pointer-events:none">
+        <div class="header-c">
+          <div class="header-c-top">
+            <div class="back">‹</div>
+            <h3>התורים שלי</h3>
+            <div style="width:32px"></div>
+          </div>
+          <p>3 תורים קרובים</p>
+        </div>
+        <div class="overlap-body">
+          <div class="mock-card"></div>
+          <div class="mock-card"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

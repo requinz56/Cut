@@ -61,26 +61,29 @@ export default function BottomNav({ variant = 'customer' }: BottomNavProps) {
               key={tab.href}
               href={tab.href}
               className={[
-                'flex-1 flex flex-col items-center justify-center gap-1 transition-all tap-highlight-none relative py-2',
+                'flex-1 flex flex-col items-center justify-center gap-0.5 transition-all tap-highlight-none relative py-2',
                 active
                   ? 'text-blue'
-                  : 'text-text-muted opacity-70 hover:opacity-100 hover:text-text-secondary',
+                  : 'text-text-muted/60 hover:text-text-muted',
               ].join(' ')}
             >
-              <span className="relative">
+              {active && (
+                <span className="absolute top-1.5 left-1/2 -translate-x-1/2 w-8 h-1 rounded-full bg-blue pointer-events-none" />
+              )}
+              <span className={[
+                'relative flex items-center justify-center w-10 h-8 rounded-xl transition-all duration-150',
+                active ? 'bg-blue-xlight' : '',
+              ].join(' ')}>
                 {tab.icon}
                 {variant === 'customer' && tab.href === '/notifications' && UNREAD_COUNT > 0 && (
-                  <span className="absolute -top-1 -end-1 min-w-[16px] h-4 px-1 flex items-center justify-center rounded-full bg-red-500 text-white text-[9px] font-bold leading-none">
+                  <span className="absolute -top-0.5 -end-0.5 min-w-[16px] h-4 px-1 flex items-center justify-center rounded-full bg-red-500 text-white text-[9px] font-bold leading-none">
                     {UNREAD_COUNT}
                   </span>
                 )}
               </span>
-              <span className={`text-xs ${active ? 'font-bold' : 'font-medium'}`}>
+              <span className={`text-[11px] leading-none ${active ? 'font-bold text-blue' : 'font-medium'}`}>
                 {tab.label}
               </span>
-              {active && (
-                <span className="absolute bottom-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-blue pointer-events-none" />
-              )}
             </Link>
           )
         })}

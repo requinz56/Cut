@@ -1,0 +1,85 @@
+<h2>איזה סגנון ניווט תחתון מתאים לאפליקציה?</h2>
+<p class="subtitle">The bottom nav appears on every screen — its style shapes the whole app feel</p>
+
+<style>
+  .nav-preview { border-radius: 0 0 14px 14px; overflow: hidden; background: #F4F8FF; padding: 0; margin-top: 8px; }
+  .phone-screen { background: #F4F8FF; height: 80px; display: flex; align-items: center; justify-content: center; }
+  .screen-label { color: #94A3B8; font-size: 12px; font-family: 'Segoe UI', sans-serif; }
+
+  /* Option A - Standard icon+label */
+  .nav-a { background: #fff; border-top: 1px solid #E2EAFF; display: flex; justify-content: space-around; padding: 10px 0 14px; box-shadow: 0 -2px 12px rgba(27,79,216,0.06); }
+  .nav-item-a { display: flex; flex-direction: column; align-items: center; gap: 4px; font-family: 'Segoe UI', sans-serif; font-size: 10px; color: #94A3B8; min-width: 52px; }
+  .nav-item-a.active { color: #1B4FD8; }
+  .nav-item-a .icon { font-size: 20px; }
+
+  /* Option B - Pill highlight on active */
+  .nav-b { background: #fff; border-top: 1px solid #E2EAFF; display: flex; justify-content: space-around; padding: 8px 8px 14px; box-shadow: 0 -2px 16px rgba(27,79,216,0.08); }
+  .nav-item-b { display: flex; flex-direction: column; align-items: center; gap: 3px; font-family: 'Segoe UI', sans-serif; font-size: 10px; color: #94A3B8; padding: 6px 14px; border-radius: 20px; transition: all 0.2s; }
+  .nav-item-b.active { background: #EFF6FF; color: #1B4FD8; }
+  .nav-item-b .icon { font-size: 19px; }
+
+  /* Option C - Floating glass bar */
+  .nav-c-wrap { padding: 0 0 14px; background: #F4F8FF; }
+  .nav-c { background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); border: 1px solid rgba(226,234,255,0.8); border-radius: 24px; display: flex; justify-content: space-around; padding: 8px 4px 10px; margin: 0 12px; box-shadow: 0 4px 24px rgba(27,79,216,0.12); }
+  .nav-item-c { display: flex; flex-direction: column; align-items: center; gap: 3px; font-family: 'Segoe UI', sans-serif; font-size: 10px; color: #94A3B8; padding: 4px 12px; border-radius: 16px; }
+  .nav-item-c.active { background: #1B4FD8; color: #fff; }
+  .nav-item-c .icon { font-size: 18px; }
+</style>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>סטנדרטי — אייקון + תווית</h3>
+      <p>קלאסי ומוכר, גבול עליון עם צל קל</p>
+      <div class="nav-preview" style="pointer-events:none">
+        <div class="phone-screen"><span class="screen-label">תוכן מסך...</span></div>
+        <div class="nav-a">
+          <div class="nav-item-a active"><span class="icon">🏠</span>בית</div>
+          <div class="nav-item-a"><span class="icon">🔍</span>חיפוש</div>
+          <div class="nav-item-a"><span class="icon">📅</span>תורים</div>
+          <div class="nav-item-a"><span class="icon">🔔</span>התראות</div>
+          <div class="nav-item-a"><span class="icon">👤</span>פרופיל</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>פיל כחול על הפעיל</h3>
+      <p>הדגשה נקייה של הטאב הפעיל עם רקע כחול עדין</p>
+      <div class="nav-preview" style="pointer-events:none">
+        <div class="phone-screen"><span class="screen-label">תוכן מסך...</span></div>
+        <div class="nav-b">
+          <div class="nav-item-b active"><span class="icon">🏠</span>בית</div>
+          <div class="nav-item-b"><span class="icon">🔍</span>חיפוש</div>
+          <div class="nav-item-b"><span class="icon">📅</span>תורים</div>
+          <div class="nav-item-b"><span class="icon">🔔</span>התראות</div>
+          <div class="nav-item-b"><span class="icon">👤</span>פרופיל</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>פס צף עם זכוכית</h3>
+      <p>פס מרחף עם blur, פעיל = כחול מלא — תחושת אפליקציה פרמיום</p>
+      <div class="nav-preview" style="pointer-events:none">
+        <div class="phone-screen"><span class="screen-label">תוכן מסך...</span></div>
+        <div class="nav-c-wrap">
+          <div class="nav-c">
+            <div class="nav-item-c active"><span class="icon">🏠</span>בית</div>
+            <div class="nav-item-c"><span class="icon">🔍</span>חיפוש</div>
+            <div class="nav-item-c"><span class="icon">📅</span>תורים</div>
+            <div class="nav-item-c"><span class="icon">🔔</span>התראות</div>
+            <div class="nav-item-c"><span class="icon">👤</span>פרופיל</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

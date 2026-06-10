@@ -18,8 +18,8 @@ import type { Appointment } from '@/types'
 
 function getGreeting(): { sub: string; main: string } {
   const h = new Date().getHours()
-  if (h >= 5 && h < 11)  return { sub: 'בוקר טוב ☀️',    main: 'מה עושים היום?' }
-  if (h >= 11 && h < 17) return { sub: 'צהריים טובים 🌤', main: 'מה נעשה עכשיו?' }
+  if (h >= 5 && h < 11)  return { sub: 'בוקר טוב ☀️',    main: 'מה נקבע היום?' }
+  if (h >= 11 && h < 17) return { sub: 'צהריים טובים 🌤', main: 'מה נקבע עכשיו?' }
   if (h >= 17 && h < 21) return { sub: 'ערב טוב 🌙',      main: 'הזמן תור לעכשיו' }
   return                         { sub: 'לילה טוב 🌙',     main: 'הזמן מראש' }
 }
@@ -127,29 +127,29 @@ function HomeContent() {
             {/* Quick rebook from recent appointments */}
             {mounted && recentProviders.length > 0 && (
               <div>
-                <SectionHeader title="הזמנות אחרונות" className="mb-3" />
+                <SectionHeader title="תורים אחרונים" className="mb-3" />
                 <div className="flex gap-3 overflow-x-auto scroll-hide pb-1 -mx-4 px-4">
                   {recentProviders.map((p) => (
                     <div
                       key={p.id}
-                      className="flex-shrink-0 bg-white rounded-xl border border-surface-border shadow-card p-3 flex items-center gap-3 min-w-[200px]"
+                      className="flex-shrink-0 bg-white rounded-2xl border border-surface-border/70 shadow-[0_2px_10px_rgba(37,99,235,0.07)] p-3 flex items-center gap-2.5 min-w-[190px]"
                     >
-                      <div className="relative w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+                      <div className="relative w-9 h-9 rounded-full overflow-hidden flex-shrink-0 ring-1 ring-surface-border/50">
                         <Image
                           src={p.avatarUrl}
                           alt={p.businessName}
                           fill
                           className="object-cover"
-                          sizes="40px"
+                          sizes="36px"
                         />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-semibold text-text-primary truncate">{p.businessName}</p>
+                        <p className="text-xs font-bold text-text-primary truncate">{p.businessName}</p>
                       </div>
                       <button
                         type="button"
                         onClick={() => handleBook(p.id)}
-                        className="flex-shrink-0 text-xs font-semibold text-blue bg-blue-xlight border border-blue/20 px-2.5 py-1 rounded-full tap-highlight-none hover:bg-blue-light transition-colors"
+                        className="flex-shrink-0 text-[11px] font-bold text-blue bg-blue-xlight border border-blue/25 px-2.5 py-1 rounded-lg tap-highlight-none hover:bg-blue-light transition-colors"
                       >
                         הזמן שוב
                       </button>

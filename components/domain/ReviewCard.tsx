@@ -8,18 +8,22 @@ interface ReviewCardProps {
 
 export default function ReviewCard({ review }: ReviewCardProps) {
   return (
-    <div className="border-b border-surface-border last:border-0 pb-4 last:pb-0">
-      <div className="flex items-center justify-between mb-1.5">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-blue-light flex items-center justify-center text-blue font-semibold text-sm flex-shrink-0">
+    <div className="bg-white rounded-2xl border border-surface-border/70 shadow-[0_1px_6px_rgba(37,99,235,0.05)] p-4">
+      <div className="flex items-start justify-between mb-2">
+        <div className="flex items-center gap-2.5">
+          <div className="w-9 h-9 rounded-full bg-blue-xlight ring-1 ring-blue/20 flex items-center justify-center text-blue font-bold text-sm flex-shrink-0">
             {review.authorName.charAt(0)}
           </div>
-          <span className="font-medium text-text-primary text-sm">{review.authorName}</span>
+          <div>
+            <span className="font-semibold text-text-primary text-sm leading-tight">{review.authorName}</span>
+            <div className="mt-0.5">
+              <StarRating rating={review.rating} size={12} showNumber={false} />
+            </div>
+          </div>
         </div>
-        <span className="text-xs text-text-muted">{formatDateLong(review.date)}</span>
+        <span className="text-[11px] text-text-muted mt-0.5">{formatDateLong(review.date)}</span>
       </div>
-      <StarRating rating={review.rating} size={13} showNumber={false} />
-      <p className="text-sm text-text-secondary mt-1.5 leading-relaxed">{review.text}</p>
+      <p className="text-sm text-text-secondary leading-relaxed">{review.text}</p>
     </div>
   )
 }

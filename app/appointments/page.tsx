@@ -33,7 +33,7 @@ export default function AppointmentsPage() {
                 : 'text-text-muted hover:text-text-secondary',
             ].join(' ')}
           >
-            {tab === 'upcoming' ? `קרובות (${upcoming.length})` : `היסטוריה (${past.length})`}
+            {tab === 'upcoming' ? `קרובים (${upcoming.length})` : `עברו (${past.length})`}
           </button>
         ))}
       </div>
@@ -43,10 +43,10 @@ export default function AppointmentsPage() {
           <div className="flex flex-col items-center py-16 text-center">
             <span className="text-4xl mb-3">📅</span>
             <p className="font-medium text-text-primary mb-1">
-              {activeTab === 'upcoming' ? 'אין תורים קרובים' : 'אין היסטוריית תורים'}
+              {activeTab === 'upcoming' ? 'אין תורים קרובים' : 'אין תורים קודמים'}
             </p>
             <p className="text-sm text-text-muted">
-              {activeTab === 'upcoming' ? 'הזמן תור חדש כדי להתחיל' : 'התורים שעברו יופיעו כאן'}
+              {activeTab === 'upcoming' ? 'קבע את התור הראשון שלך עכשיו' : 'התורים שסיימת יופיעו כאן'}
             </p>
           </div>
         ) : (

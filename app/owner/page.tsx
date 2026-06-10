@@ -36,7 +36,7 @@ export default function OwnerHomePage() {
             />
           </div>
           <div>
-            <p className="text-xs text-white/70">ממשק בעל עסק</p>
+            <p className="text-xs text-white/70">ניהול עסק</p>
             <h1 className="font-extrabold text-white">{BUSINESS_SETTINGS.name}</h1>
           </div>
         </div>
@@ -44,23 +44,29 @@ export default function OwnerHomePage() {
 
       <div className="px-4 py-5 space-y-5">
         {/* Stats row */}
-        <div className="grid grid-cols-3 gap-3">
-          <div className="bg-gradient-to-br from-blue-xlight to-blue-light rounded-xl p-4 text-center border border-blue/10">
-            <Calendar size={18} className="text-blue mx-auto mb-1.5" />
-            <p className="text-2xl font-extrabold text-blue">{todaysAppointments.length}</p>
-            <p className="text-xs font-medium text-text-muted">תורים היום</p>
+        <div className="grid grid-cols-3 gap-2.5">
+          <div className="bg-white rounded-2xl p-3.5 text-center border border-blue/15 shadow-[0_2px_10px_rgba(37,99,235,0.08)]">
+            <div className="w-8 h-8 rounded-xl bg-blue-xlight flex items-center justify-center mx-auto mb-2">
+              <Calendar size={16} className="text-blue" />
+            </div>
+            <p className="text-2xl font-extrabold text-blue leading-none mb-1">{todaysAppointments.length}</p>
+            <p className="text-[10px] font-semibold text-text-muted leading-tight">תורים היום</p>
           </div>
-          <div className="bg-gradient-to-br from-emerald-50 to-green-100 rounded-xl p-4 text-center border border-green-100">
-            <TrendingUp size={18} className="text-status-confirmed mx-auto mb-1.5" />
-            <p className="text-2xl font-extrabold text-status-confirmed" dir="ltr">
+          <div className="bg-white rounded-2xl p-3.5 text-center border border-green-100 shadow-[0_2px_10px_rgba(34,197,94,0.08)]">
+            <div className="w-8 h-8 rounded-xl bg-green-50 flex items-center justify-center mx-auto mb-2">
+              <TrendingUp size={16} className="text-status-confirmed" />
+            </div>
+            <p className="text-lg font-extrabold text-status-confirmed leading-none mb-1" dir="ltr">
               {formatPrice(revenue)}
             </p>
-            <p className="text-xs font-medium text-text-muted">הכנסה</p>
+            <p className="text-[10px] font-semibold text-text-muted leading-tight">הכנסה</p>
           </div>
-          <div className="bg-gradient-to-br from-slate-50 to-surface rounded-xl p-4 text-center border border-surface-border">
-            <Users size={18} className="text-text-secondary mx-auto mb-1.5" />
-            <p className="text-2xl font-extrabold text-text-primary">{activeStaffCount}</p>
-            <p className="text-xs font-medium text-text-muted">צוות פעיל</p>
+          <div className="bg-white rounded-2xl p-3.5 text-center border border-surface-border shadow-[0_2px_10px_rgba(37,99,235,0.04)]">
+            <div className="w-8 h-8 rounded-xl bg-surface flex items-center justify-center mx-auto mb-2">
+              <Users size={16} className="text-text-secondary" />
+            </div>
+            <p className="text-2xl font-extrabold text-text-primary leading-none mb-1">{activeStaffCount}</p>
+            <p className="text-[10px] font-semibold text-text-muted leading-tight">צוות פעיל</p>
           </div>
         </div>
 
@@ -73,7 +79,7 @@ export default function OwnerHomePage() {
             startIcon={<Plus size={18} />}
             onClick={() => router.push('/book/service')}
           >
-            + תור חדש
+            + הזמן תור
           </Button>
           <Button
             variant="secondary"
@@ -88,7 +94,7 @@ export default function OwnerHomePage() {
         {/* Today's appointments */}
         <div>
           <SectionHeader
-            title="לוח היום"
+            title="תורים להיום"
             actionLabel="כל התורים"
             onAction={() => router.push('/owner/appointments')}
             className="mb-3"
@@ -100,21 +106,20 @@ export default function OwnerHomePage() {
               {todaysAppointments.map((apt) => (
                 <div
                   key={apt.id}
-                  className="bg-white rounded-xl border border-surface-border shadow-card p-3.5 flex items-center gap-3"
+                  className="bg-white rounded-2xl border border-surface-border/70 shadow-[0_1px_6px_rgba(37,99,235,0.05)] p-3.5 flex items-center gap-3"
                 >
-                  <div className="flex flex-col items-center text-center w-10 flex-shrink-0 bg-blue-xlight rounded-lg py-1.5">
-                    <Clock size={12} className="text-blue mb-0.5" />
-                    <span className="text-xs font-bold text-blue" dir="ltr">{apt.time}</span>
+                  <div className="flex flex-col items-center justify-center w-11 h-11 flex-shrink-0 bg-blue-xlight rounded-xl">
+                    <Clock size={11} className="text-blue mb-0.5" />
+                    <span className="text-[11px] font-extrabold text-blue leading-none" dir="ltr">{apt.time}</span>
                   </div>
-                  <div className="w-px h-8 bg-surface-border flex-shrink-0" />
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-text-primary leading-tight">{apt.serviceName}</p>
+                    <p className="text-sm font-bold text-text-primary leading-tight">{apt.serviceName}</p>
                     {apt.staffName && (
-                      <p className="text-xs text-text-muted">{apt.staffName}</p>
+                      <p className="text-xs text-text-muted mt-0.5">{apt.staffName}</p>
                     )}
                   </div>
-                  <div className="flex items-center gap-2 flex-shrink-0">
-                    <span className="text-sm font-semibold text-text-primary" dir="ltr">
+                  <div className="flex flex-col items-end gap-1 flex-shrink-0">
+                    <span className="text-sm font-bold text-text-primary" dir="ltr">
                       {formatPrice(apt.priceILS)}
                     </span>
                     <StatusBadge status={apt.status} size="sm" />

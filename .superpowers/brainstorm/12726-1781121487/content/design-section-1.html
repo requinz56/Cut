@@ -1,0 +1,131 @@
+<h2>עיצוב — חלק 1: כרטיסיות ורכיבים משותפים</h2>
+<p class="subtitle">The polished component direction — does this match what you had in mind?</p>
+
+<style>
+  * { box-sizing: border-box; }
+  .section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #94A3B8; margin: 20px 0 10px; font-family: 'Segoe UI', sans-serif; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .panel { background: #F8FAFF; border-radius: 12px; padding: 14px; }
+  .panel-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; font-family: 'Segoe UI', sans-serif; }
+  .before-label { color: #94A3B8; }
+  .after-label { color: #1B4FD8; }
+
+  /* Shared base */
+  .app-card { direction: rtl; font-family: 'Segoe UI', sans-serif; text-align: right; border-radius: 14px; padding: 16px; }
+  .row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .avatar { width: 44px; height: 44px; border-radius: 50%; background: #E2EAFF; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .info h4 { margin: 0 0 2px; font-size: 14px; font-weight: 700; color: #0B1629; }
+  .info p { margin: 0; font-size: 11px; color: #94A3B8; }
+  .pills { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+  .foot { display: flex; align-items: center; justify-content: space-between; }
+
+  /* BEFORE card */
+  .card-before { background: #fff; border: 1px solid #E2EAFF; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border-right: 4px solid #1B4FD8; }
+  .pill-before { background: #F4F8FF; border: 1px solid #E2EAFF; border-radius: 20px; padding: 3px 8px; font-size: 10px; color: #475569; }
+  .badge-before { background: #DBEAFE; color: #1E40AF; font-size: 10px; padding: 3px 8px; border-radius: 20px; }
+  .price-before { font-size: 13px; font-weight: 600; color: #0B1629; }
+
+  /* AFTER card */
+  .card-after { background: #fff; border: none; box-shadow: 0 4px 20px rgba(27,79,216,0.10), 0 1px 4px rgba(0,0,0,0.03); }
+  .pill-after { background: #EFF6FF; border: none; border-radius: 20px; padding: 4px 10px; font-size: 10px; color: #1B4FD8; font-weight: 500; display: flex; align-items: center; gap: 3px; }
+  .badge-after { background: #EFF6FF; color: #1B4FD8; font-size: 10px; padding: 4px 12px; border-radius: 20px; font-weight: 600; letter-spacing: 0.01em; }
+  .price-after { font-size: 15px; font-weight: 800; color: #0B1629; }
+  .btn-after { background: linear-gradient(135deg, #1B4FD8, #3B82F6); color: #fff; border: none; border-radius: 10px; padding: 7px 14px; font-size: 12px; font-weight: 600; cursor: pointer; }
+
+  /* Provider card list */
+  .prov-before { background: #fff; border: 1px solid #E2EAFF; border-right: 2px solid #1B4FD8; border-radius: 14px; padding: 14px; direction: rtl; font-family: 'Segoe UI', sans-serif; }
+  .prov-after { background: #fff; border: none; border-radius: 14px; padding: 14px; box-shadow: 0 4px 20px rgba(27,79,216,0.10), 0 1px 4px rgba(0,0,0,0.03); direction: rtl; font-family: 'Segoe UI', sans-serif; }
+  .prov-row { display: flex; gap: 12px; align-items: flex-start; }
+  .prov-avatar { width: 52px; height: 52px; border-radius: 12px; background: #E2EAFF; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+  .prov-avatar-after { width: 52px; height: 52px; border-radius: 12px; background: linear-gradient(135deg, #DBEAFE, #EFF6FF); display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; box-shadow: 0 2px 8px rgba(27,79,216,0.12); }
+  .prov-meta { font-size: 10px; color: #94A3B8; margin-top: 2px; }
+  .prov-meta-after { font-size: 10px; color: #1B4FD8; margin-top: 2px; font-weight: 500; }
+  .prov-name { font-size: 14px; font-weight: 700; color: #0B1629; margin: 0; }
+  .open-badge { background: #DCFCE7; color: #16A34A; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 20px; display: inline-block; margin-top: 4px; }
+  .open-badge-after { background: #F0FDF4; color: #16A34A; font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: 20px; display: inline-flex; align-items: center; gap: 3px; border: 1px solid rgba(22,163,74,0.2); }
+  .prov-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
+  .price-from { font-size: 11px; color: #475569; }
+  .price-from span { font-weight: 700; color: #0B1629; }
+  .book-btn-before { background: #1B4FD8; color: #fff; border: none; border-radius: 8px; padding: 6px 14px; font-size: 11px; cursor: pointer; }
+  .book-btn-after { background: linear-gradient(135deg, #1B4FD8, #3B82F6); color: #fff; border: none; border-radius: 10px; padding: 7px 16px; font-size: 11px; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(27,79,216,0.25); }
+</style>
+
+<!-- Appointment Card -->
+<div class="section-title">Appointment Card</div>
+<div class="split">
+  <div class="panel">
+    <div class="panel-label before-label">לפני</div>
+    <div class="app-card card-before" style="pointer-events:none">
+      <div class="row"><div class="avatar">💈</div><div class="info"><h4>ג'נטלמן ברבר</h4><p>ספרות גברים</p></div></div>
+      <div class="pills"><span class="pill-before">יום ג׳, 10 ביוני</span><span class="pill-before">14:30</span></div>
+      <div class="foot"><span class="price-before">₪120</span><span class="badge-before">מאושר</span></div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-label after-label">אחרי ✦</div>
+    <div class="app-card card-after" style="pointer-events:none">
+      <div class="row"><div class="avatar">💈</div><div class="info"><h4>ג'נטלמן ברבר</h4><p>ספרות גברים</p></div></div>
+      <div class="pills"><span class="pill-after">📅 יום ג׳, 10 ביוני</span><span class="pill-after">🕐 14:30</span></div>
+      <div class="foot"><span class="price-after">₪120</span><span class="badge-after">מאושר</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Provider Card -->
+<div class="section-title">Provider Card (List)</div>
+<div class="split">
+  <div class="panel">
+    <div class="panel-label before-label">לפני</div>
+    <div class="prov-before" style="pointer-events:none">
+      <div class="prov-row">
+        <div class="prov-avatar">💅</div>
+        <div>
+          <p class="prov-name">סטודיו ניילס</p>
+          <div class="prov-meta">ציפורניים · ⭐ 4.8</div>
+          <span class="open-badge">פתוח עכשיו</span>
+        </div>
+      </div>
+      <div class="prov-foot"><span class="price-from">מ-<span>₪80</span></span><button class="book-btn-before">קבע תור</button></div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-label after-label">אחרי ✦</div>
+    <div class="prov-after" style="pointer-events:none">
+      <div class="prov-row">
+        <div class="prov-avatar-after">💅</div>
+        <div>
+          <p class="prov-name">סטודיו ניילס</p>
+          <div class="prov-meta-after">ציפורניים · ⭐ 4.8</div>
+          <span class="open-badge-after">● פתוח עכשיו</span>
+        </div>
+      </div>
+      <div class="prov-foot"><span class="price-from">מ-<span>₪80</span></span><button class="book-btn-after">קבע תור</button></div>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top: 20px; background: #F0F7FF; border-radius: 12px; padding: 14px; font-family: 'Segoe UI', sans-serif; direction: rtl; font-size: 13px; color: #1B4FD8; line-height: 1.6;">
+  <strong>עקרונות העיצוב שיחולו על כל הרכיבים:</strong><br>
+  ✦ צל עדין במקום גבול — יוצר עומק בלי קווים קשים<br>
+  ✦ תגיות "pill" בצבע כחול-בהיר עם אייקון — נקייה יותר מאפור<br>
+  ✦ כפתורים עם גרדיאנט עדין + צל כחול קטן — תחושת לחיצה פרמיום<br>
+  ✦ מחיר בולד כבד — היררכיה ויזואלית ברורה<br>
+  ✦ "פתוח עכשיו" עם נקודה ירוקה + גבול עדין
+</div>
+
+<div class="options" style="margin-top: 16px;">
+  <div class="option" data-choice="approve" onclick="toggleSelect(this)">
+    <div class="letter">✓</div>
+    <div class="content">
+      <h3>כן, זה הכיוון הנכון</h3>
+      <p>אמשיך לעצב את שאר הרכיבים לפי הכיוון הזה</p>
+    </div>
+  </div>
+  <div class="option" data-choice="adjust" onclick="toggleSelect(this)">
+    <div class="letter">↺</div>
+    <div class="content">
+      <h3>יש משהו לשנות</h3>
+      <p>ספר לי בטרמינל מה לא עובד</p>
+    </div>
+  </div>
+</div>

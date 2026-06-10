@@ -317,7 +317,7 @@ export const SAMPLE_NOTIFICATIONS: Notification[] = [
   {
     id: 'notif-3',
     type: 'system',
-    title: 'ברוכים הבאים ל-TOR5',
+    title: 'ברוכים הבאים!',
     body: 'שמחים שהצטרפת! הזמן את התור הראשון שלך תוך דקות ספורות.',
     date: '2026-06-01T08:00:00Z',
     read: true,

@@ -50,9 +50,9 @@ export default function OwnerSettingsPage() {
 
       <div className="px-4 py-5 space-y-6">
         {/* Business image */}
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center py-2">
           <div className="relative">
-            <div className="relative w-24 h-24 rounded-2xl overflow-hidden border-2 border-surface-border">
+            <div className="relative w-24 h-24 rounded-2xl overflow-hidden border border-surface-border/70 shadow-[0_2px_12px_rgba(37,99,235,0.1)]">
               <Image
                 src={BUSINESS_SETTINGS.imageUrl}
                 alt={name}
@@ -64,12 +64,12 @@ export default function OwnerSettingsPage() {
             <button
               type="button"
               aria-label="שנה תמונה"
-              className="absolute -bottom-1 -start-1 w-8 h-8 bg-blue rounded-full flex items-center justify-center text-white tap-highlight-none shadow-md"
+              className="absolute -bottom-1.5 -start-1.5 w-8 h-8 bg-blue rounded-xl flex items-center justify-center text-white tap-highlight-none shadow-md hover:bg-blue-dark transition-colors"
             >
               <Camera size={14} />
             </button>
           </div>
-          <p className="text-xs text-text-muted mt-2">תמונת העסק / לוגו</p>
+          <p className="text-[11px] text-text-muted mt-3 font-medium">תמונת העסק / לוגו</p>
         </div>
 
         {/* Basic info */}
@@ -129,17 +129,17 @@ export default function OwnerSettingsPage() {
           fullWidth
           onClick={handleSave}
         >
-          {saved ? '✓ נשמר בהצלחה' : 'שמור שינויים'}
+          {saved ? '✓ השינויים נשמרו' : 'שמור שינויים'}
         </Button>
 
         {/* Switch to customer view */}
         <button
           type="button"
           onClick={() => router.push('/')}
-          className="w-full flex items-center justify-center gap-2 py-3 rounded-xl border border-surface-border text-sm font-medium text-text-secondary hover:border-blue hover:text-blue transition-colors tap-highlight-none"
+          className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl border border-surface-border/70 text-sm font-semibold text-text-secondary hover:border-blue/40 hover:text-blue hover:bg-blue-xlight transition-all tap-highlight-none"
         >
           <span>מעבר לממשק לקוח</span>
-          <ChevronLeft size={16} />
+          <ChevronLeft size={15} />
         </button>
       </div>
 
