@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    letter-spacing: 0 !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: 'Heebo', 'Arial Hebrew', Arial, sans-serif;
+    text-align: start;
+    background-color: #F8FAFC;
+  }
+
+  body {
+    min-height: 100dvh;
+    color: #0F172A;
+  }
+
+  input,
+  textarea,
+  select {
+    font-family: inherit;
+  }
+
+  /* Phone/time inputs should display LTR */
+  input[type='tel'],
+  input[type='time'] {
+    direction: ltr;
+    text-align: start;
+  }
+}
+
+@layer utilities {
+  /* Hebrew-safe: remove tracking on all text */
+  .no-tracking {
+    letter-spacing: 0 !important;
+  }
+
+  /* Safe area for bottom nav */
+  .pb-safe {
+    padding-bottom: calc(80px + env(safe-area-inset-bottom));
+  }
+
+  /* Full-bleed app shell */
+  .app-shell {
+    max-width: 430px;
+    margin-inline: auto;
+    min-height: 100dvh;
+    background: white;
+    position: relative;
+  }
+
+  /* Hide scrollbar visually but keep functionality */
+  .scroll-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scroll-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Tap highlight suppression for interactive elements */
+  .tap-highlight-none {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
