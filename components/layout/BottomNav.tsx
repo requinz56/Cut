@@ -11,6 +11,9 @@ import {
   Scissors,
   Settings,
 } from 'lucide-react'
+import { SAMPLE_NOTIFICATIONS } from '@/lib/mock-data'
+
+const UNREAD_COUNT = SAMPLE_NOTIFICATIONS.filter((n) => !n.read).length
 
 interface NavItem {
   href: string
@@ -26,11 +29,11 @@ const CUSTOMER_TABS: NavItem[] = [
 ]
 
 const OWNER_TABS: NavItem[] = [
-  { href: '/owner',              label: 'בית',      icon: <Home size={22} /> },
-  { href: '/owner/appointments', label: 'תורים',    icon: <Calendar size={22} /> },
-  { href: '/owner/staff',        label: 'צוות',     icon: <Users size={22} /> },
-  { href: '/owner/services',     label: 'שירותים',  icon: <Scissors size={22} /> },
-  { href: '/owner/settings',     label: 'הגדרות',   icon: <Settings size={22} /> },
+  { href: '/owner',              label: 'בית',      icon: <Home size={20} /> },
+  { href: '/owner/appointments', label: 'תורים',    icon: <Calendar size={20} /> },
+  { href: '/owner/staff',        label: 'צוות',     icon: <Users size={20} /> },
+  { href: '/owner/services',     label: 'שירותים',  icon: <Scissors size={20} /> },
+  { href: '/owner/settings',     label: 'הגדרות',   icon: <Settings size={20} /> },
 ]
 
 interface BottomNavProps {
@@ -47,10 +50,10 @@ export default function BottomNav({ variant = 'customer' }: BottomNavProps) {
   }
 
   return (
-    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-app bg-white border-t border-surface-border shadow-nav z-40"
+    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-app glass-nav shadow-nav z-40"
       style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
     >
-      <div className="flex items-stretch h-16">
+      <div className="flex items-stretch h-[72px]">
         {tabs.map((tab) => {
           const active = isActive(tab.href)
           return (
@@ -58,16 +61,25 @@ export default function BottomNav({ variant = 'customer' }: BottomNavProps) {
               key={tab.href}
               href={tab.href}
               className={[
-                'flex-1 flex flex-col items-center justify-center gap-0.5 transition-colors tap-highlight-none',
-                active ? 'text-blue' : 'text-text-muted hover:text-text-secondary',
+                'flex-1 flex flex-col items-center justify-center gap-1 transition-all tap-highlight-none relative py-2',
+                active
+                  ? 'text-blue'
+                  : 'text-text-muted opacity-70 hover:opacity-100 hover:text-text-secondary',
               ].join(' ')}
             >
-              <span className={active ? 'text-blue' : ''}>{tab.icon}</span>
-              <span className={`text-xs font-medium ${active ? 'text-blue' : ''}`}>
+              <span className="relative">
+                {tab.icon}
+                {variant === 'customer' && tab.href === '/notifications' && UNREAD_COUNT > 0 && (
+                  <span className="absolute -top-1 -end-1 min-w-[16px] h-4 px-1 flex items-center justify-center rounded-full bg-red-500 text-white text-[9px] font-bold leading-none">
+                    {UNREAD_COUNT}
+                  </span>
+                )}
+              </span>
+              <span className={`text-xs ${active ? 'font-bold' : 'font-medium'}`}>
                 {tab.label}
               </span>
               {active && (
-                <span className="absolute bottom-0 w-6 h-0.5 bg-blue rounded-full" />
+                <span className="absolute bottom-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-blue pointer-events-none" />
               )}
             </Link>
           )

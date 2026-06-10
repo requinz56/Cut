@@ -68,6 +68,7 @@ export interface Provider {
   contact: ContactInfo
   location: string
   isActive: boolean
+  isOpenNow?: boolean
 }
 
 // ─── Appointment ─────────────────────────────────────────────────────────────

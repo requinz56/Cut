@@ -111,6 +111,7 @@ export const PROVIDERS: Provider[] = [
     },
     location: 'רחוב דיזנגוף 85, תל אביב',
     isActive: true,
+    isOpenNow: true,
   },
   {
     id: 'studio-nail',
@@ -139,6 +140,7 @@ export const PROVIDERS: Provider[] = [
     },
     location: 'שדרות רוטשילד 22, תל אביב',
     isActive: true,
+    isOpenNow: true,
   },
   {
     id: 'salon-shir',
@@ -166,6 +168,7 @@ export const PROVIDERS: Provider[] = [
     },
     location: 'רחוב בן יהודה 112, תל אביב',
     isActive: true,
+    isOpenNow: false,
   },
   {
     id: 'clinic-b',
@@ -192,6 +195,7 @@ export const PROVIDERS: Provider[] = [
     },
     location: 'שדרות הנשיא 8, הרצליה',
     isActive: true,
+    isOpenNow: true,
   },
 ]
 

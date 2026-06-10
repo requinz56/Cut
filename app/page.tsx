@@ -1,32 +1,74 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import { Bell } from 'lucide-react'
 import AppShell from '@/components/layout/AppShell'
 import BottomNav from '@/components/layout/BottomNav'
 import SearchBar from '@/components/layout/SearchBar'
 import SectionHeader from '@/components/ui/SectionHeader'
+import Skeleton from '@/components/ui/Skeleton'
 import CategoryCard from '@/components/domain/CategoryCard'
 import ProviderCard from '@/components/domain/ProviderCard'
 import { CATEGORIES, PROVIDERS } from '@/lib/mock-data'
 import { useBooking } from '@/context/BookingContext'
+import { useDebounce } from '@/hooks/useDebounce'
+import type { Appointment } from '@/types'
+
+function getGreeting(): { sub: string; main: string } {
+  const h = new Date().getHours()
+  if (h >= 5 && h < 11)  return { sub: 'בוקר טוב ☀️',    main: 'מה עושים היום?' }
+  if (h >= 11 && h < 17) return { sub: 'צהריים טובים 🌤', main: 'מה נעשה עכשיו?' }
+  if (h >= 17 && h < 21) return { sub: 'ערב טוב 🌙',      main: 'הזמן תור לעכשיו' }
+  return                         { sub: 'לילה טוב 🌙',     main: 'הזמן מראש' }
+}
 
 function HomeContent() {
   const [search, setSearch] = useState('')
+  const [mounted, setMounted] = useState(false)
+  const [recentProviderIds, setRecentProviderIds] = useState<string[]>([])
   const router = useRouter()
   const { setProvider } = useBooking()
+  const debouncedSearch = useDebounce(search, 300)
+  const greeting = useMemo(getGreeting, [])
+
+  useEffect(() => {
+    setMounted(true)
+    try {
+      const raw = localStorage.getItem('appointments')
+      if (raw) {
+        const apts: Appointment[] = JSON.parse(raw)
+        const seen = new Set<string>()
+        const ids: string[] = []
+        for (const a of [...apts].reverse()) {
+          if (!seen.has(a.providerId)) {
+            seen.add(a.providerId)
+            ids.push(a.providerId)
+          }
+          if (ids.length >= 3) break
+        }
+        setRecentProviderIds(ids)
+      }
+    } catch {
+      // ignore corrupt localStorage
+    }
+  }, [])
 
   const featuredProviders = PROVIDERS.filter((p) => p.isActive)
 
-  const filteredProviders = search.trim()
+  const filteredProviders = debouncedSearch.trim()
     ? PROVIDERS.filter(
         (p) =>
-          p.businessName.includes(search) ||
-          p.location.includes(search) ||
-          p.services.some((s) => s.name.includes(search))
+          p.businessName.includes(debouncedSearch) ||
+          p.location.includes(debouncedSearch) ||
+          p.services.some((s) => s.name.includes(debouncedSearch))
       )
     : null
+
+  const recentProviders = recentProviderIds
+    .map((id) => PROVIDERS.find((p) => p.id === id))
+    .filter(Boolean) as typeof PROVIDERS
 
   function handleBook(providerId: string) {
     setProvider(providerId)
@@ -35,29 +77,31 @@ function HomeContent() {
 
   return (
     <AppShell>
-      {/* Header */}
-      <div className="bg-white sticky top-0 z-30 border-b border-surface-border">
-        <div className="flex items-center justify-between px-4 pt-5 pb-3">
+      {/* Hero Section */}
+      <div className="hero-gradient sticky top-0 z-30 px-4 pt-7 pb-5 overflow-hidden">
+        <div className="hero-shine" aria-hidden="true" />
+        <div className="flex items-center justify-between mb-5">
           <div>
-            <p className="text-sm text-text-muted">שלום 👋</p>
-            <h1 className="text-xl font-bold text-text-primary">מה נעשה היום?</h1>
+            <p className="text-sm text-white/65 font-medium mb-0.5">{greeting.sub}</p>
+            <h1 className="text-3xl font-extrabold text-white leading-tight">{greeting.main}</h1>
           </div>
           <button
             type="button"
             onClick={() => router.push('/notifications')}
             aria-label="התראות"
-            className="relative w-10 h-10 flex items-center justify-center rounded-full bg-surface hover:bg-blue-light transition-colors tap-highlight-none"
+            className="relative w-11 h-11 flex items-center justify-center rounded-full bg-white/15 border border-white/20 hover:bg-white/25 transition-colors tap-highlight-none"
           >
-            <Bell size={20} className="text-text-secondary" />
-            <span className="absolute top-1.5 end-1.5 w-2 h-2 bg-blue rounded-full" />
+            <Bell size={20} className="text-white" />
+            <span className="absolute top-1.5 end-1.5 w-2 h-2 bg-white rounded-full" />
           </button>
         </div>
-        <div className="px-4 pb-3">
+        {/* Search as white floating card */}
+        <div className="bg-white rounded-2xl shadow-lg shadow-blue/10 overflow-hidden">
           <SearchBar value={search} onChange={setSearch} />
         </div>
       </div>
 
-      <div className="px-4 py-5 space-y-6">
+      <div className="px-4 py-5 space-y-8">
         {/* Search results */}
         {filteredProviders !== null ? (
           <div>
@@ -80,6 +124,41 @@ function HomeContent() {
           </div>
         ) : (
           <>
+            {/* Quick rebook from recent appointments */}
+            {mounted && recentProviders.length > 0 && (
+              <div>
+                <SectionHeader title="הזמנות אחרונות" className="mb-3" />
+                <div className="flex gap-3 overflow-x-auto scroll-hide pb-1 -mx-4 px-4">
+                  {recentProviders.map((p) => (
+                    <div
+                      key={p.id}
+                      className="flex-shrink-0 bg-white rounded-xl border border-surface-border shadow-card p-3 flex items-center gap-3 min-w-[200px]"
+                    >
+                      <div className="relative w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+                        <Image
+                          src={p.avatarUrl}
+                          alt={p.businessName}
+                          fill
+                          className="object-cover"
+                          sizes="40px"
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-semibold text-text-primary truncate">{p.businessName}</p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleBook(p.id)}
+                        className="flex-shrink-0 text-xs font-semibold text-blue bg-blue-xlight border border-blue/20 px-2.5 py-1 rounded-full tap-highlight-none hover:bg-blue-light transition-colors"
+                      >
+                        הזמן שוב
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Categories */}
             <div>
               <SectionHeader
@@ -88,16 +167,24 @@ function HomeContent() {
                 onAction={() => router.push('/categories')}
                 className="mb-3"
               />
-              <div className="flex gap-2 overflow-x-auto scroll-hide pb-1 -mx-4 px-4">
-                {CATEGORIES.map((cat) => (
-                  <CategoryCard
-                    key={cat.id}
-                    category={cat}
-                    compact
-                    onClick={() => router.push(`/providers?category=${cat.id}`)}
-                  />
-                ))}
-              </div>
+              {!mounted ? (
+                <div className="flex gap-2 overflow-x-auto scroll-hide pb-1 -mx-4 px-4">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Skeleton key={i} variant="category" />
+                  ))}
+                </div>
+              ) : (
+                <div className="flex gap-2 overflow-x-auto scroll-hide pb-1 -mx-4 px-4">
+                  {CATEGORIES.map((cat) => (
+                    <CategoryCard
+                      key={cat.id}
+                      category={cat}
+                      compact
+                      onClick={() => router.push(`/providers?category=${cat.id}`)}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Featured providers */}
@@ -108,35 +195,51 @@ function HomeContent() {
                 onAction={() => router.push('/providers')}
                 className="mb-3"
               />
-              <div className="grid grid-cols-2 gap-3">
-                {featuredProviders.slice(0, 4).map((p) => (
-                  <ProviderCard
-                    key={p.id}
-                    provider={p}
-                    layout="grid"
-                    onClick={() => router.push(`/providers/${p.id}`)}
-                    onBook={() => handleBook(p.id)}
-                  />
-                ))}
-              </div>
+              {!mounted ? (
+                <div className="grid grid-cols-2 gap-3">
+                  {Array.from({ length: 4 }).map((_, i) => (
+                    <Skeleton key={i} variant="card-grid" />
+                  ))}
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 gap-3">
+                  {featuredProviders.slice(0, 4).map((p) => (
+                    <ProviderCard
+                      key={p.id}
+                      provider={p}
+                      layout="grid"
+                      onClick={() => router.push(`/providers/${p.id}`)}
+                      onBook={() => handleBook(p.id)}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Popular near you */}
             <div>
               <SectionHeader title="פופולריים בסביבתך" className="mb-3" />
-              <div className="space-y-3">
-                {featuredProviders
-                  .sort((a, b) => b.rating - a.rating)
-                  .map((p) => (
-                    <ProviderCard
-                      key={p.id}
-                      provider={p}
-                      layout="list"
-                      onClick={() => router.push(`/providers/${p.id}`)}
-                      onBook={() => handleBook(p.id)}
-                    />
+              {!mounted ? (
+                <div className="space-y-3">
+                  {Array.from({ length: 3 }).map((_, i) => (
+                    <Skeleton key={i} variant="card-list" />
                   ))}
-              </div>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {featuredProviders
+                    .sort((a, b) => b.rating - a.rating)
+                    .map((p) => (
+                      <ProviderCard
+                        key={p.id}
+                        provider={p}
+                        layout="list"
+                        onClick={() => router.push(`/providers/${p.id}`)}
+                        onBook={() => handleBook(p.id)}
+                      />
+                    ))}
+                </div>
+              )}
             </div>
           </>
         )}

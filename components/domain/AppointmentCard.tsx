@@ -3,6 +3,13 @@
 import Image from 'next/image'
 import { Clock, Calendar } from 'lucide-react'
 import type { Appointment } from '@/types'
+
+const STATUS_BORDER: Record<string, string> = {
+  confirmed: 'border-e-status-confirmed',
+  pending:   'border-e-status-pending',
+  cancelled: 'border-e-status-cancelled',
+  completed: 'border-e-status-completed',
+}
 import StatusBadge from '@/components/ui/StatusBadge'
 import { formatDateIL } from '@/lib/date-utils'
 import { formatPrice, formatDuration } from '@/lib/format'
@@ -21,12 +28,14 @@ export default function AppointmentCard({ appointment, onCancel, onClick }: Appo
     <div
       onClick={onClick}
       className={[
-        'bg-white rounded-lg border border-surface-border shadow-card p-4',
+        'bg-white rounded-xl border border-surface-border shadow-card p-4',
+        'border-e-[5px]',
+        STATUS_BORDER[appointment.status] ?? 'border-e-transparent',
         onClick ? 'cursor-pointer active:scale-[0.99] transition-transform tap-highlight-none' : '',
       ].join(' ')}
     >
       <div className="flex items-start gap-3">
-        <div className="relative w-12 h-12 rounded-md overflow-hidden flex-shrink-0">
+        <div className="relative w-12 h-12 rounded-xl overflow-hidden flex-shrink-0">
           <Image
             src={appointment.providerAvatar}
             alt={appointment.providerName}
@@ -44,15 +53,15 @@ export default function AppointmentCard({ appointment, onCancel, onClick }: Appo
           </div>
           <p className="text-sm text-text-secondary mb-2">{appointment.serviceName}</p>
           <div className="flex items-center gap-3 text-xs text-text-muted">
-            <span className="flex items-center gap-1">
-              <Calendar size={12} />
+            <span className="flex items-center gap-1 bg-surface px-2 py-0.5 rounded-full">
+              <Calendar size={11} />
               <span dir="ltr">{formatDateIL(appointment.date)}</span>
             </span>
             <span className="flex items-center gap-1">
-              <Clock size={12} />
+              <Clock size={11} />
               <span dir="ltr">{appointment.time}</span>
             </span>
-            <span dir="ltr">{formatPrice(appointment.priceILS)}</span>
+            <span dir="ltr" className="font-medium text-text-secondary">{formatPrice(appointment.priceILS)}</span>
           </div>
           {appointment.staffName && (
             <p className="text-xs text-text-muted mt-1">עם {appointment.staffName}</p>
@@ -60,7 +69,7 @@ export default function AppointmentCard({ appointment, onCancel, onClick }: Appo
         </div>
       </div>
       {isUpcoming && onCancel && (
-        <div className="mt-3 pt-3 border-t border-surface-border/50">
+        <div className="mt-3 pt-3 border-t border-dashed border-surface-border/70">
           <button
             onClick={(e) => { e.stopPropagation(); onCancel(); }}
             className="text-sm font-medium text-status-cancelled hover:text-red-700 transition-colors tap-highlight-none"

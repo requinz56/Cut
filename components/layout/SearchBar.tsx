@@ -20,7 +20,7 @@ export default function SearchBar({ value, onChange, placeholder = 'חפש עס�
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full bg-surface border border-surface-border rounded-xl pe-10 ps-4 py-3 text-base text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-blue/25 focus:border-blue transition-colors"
+        className="w-full bg-white border border-surface-border rounded-2xl pe-10 ps-4 py-3.5 text-base text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-blue/20 focus:border-blue transition-colors"
       />
     </div>
   )

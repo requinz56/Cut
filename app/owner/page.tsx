@@ -2,12 +2,13 @@
 
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { Calendar, Clock, TrendingUp, Users } from 'lucide-react'
+import { Calendar, Clock, TrendingUp, Users, Plus } from 'lucide-react'
 import AppShell from '@/components/layout/AppShell'
 import BottomNav from '@/components/layout/BottomNav'
 import SectionHeader from '@/components/ui/SectionHeader'
 import StatusBadge from '@/components/ui/StatusBadge'
-import { OWNER_APPOINTMENTS, BUSINESS_SETTINGS } from '@/lib/mock-data'
+import Button from '@/components/ui/Button'
+import { OWNER_APPOINTMENTS, BUSINESS_SETTINGS, STAFF_MEMBERS } from '@/lib/mock-data'
 import { formatPrice } from '@/lib/format'
 
 const TODAY = '2026-06-10'
@@ -18,13 +19,14 @@ export default function OwnerHomePage() {
   const revenue = todaysAppointments
     .filter((a) => a.status !== 'cancelled')
     .reduce((sum, a) => sum + a.priceILS, 0)
+  const activeStaffCount = STAFF_MEMBERS.filter((s) => s.status === 'active').length
 
   return (
     <AppShell>
-      {/* Header */}
-      <div className="bg-white border-b border-surface-border px-4 pt-5 pb-4 sticky top-0 z-30">
+      {/* Owner Hero Header */}
+      <div className="hero-gradient sticky top-0 z-30 px-4 pt-6 pb-5">
         <div className="flex items-center gap-3">
-          <div className="relative w-11 h-11 rounded-xl overflow-hidden flex-shrink-0">
+          <div className="relative w-11 h-11 rounded-xl overflow-hidden flex-shrink-0 ring-2 ring-white/40">
             <Image
               src={BUSINESS_SETTINGS.imageUrl}
               alt={BUSINESS_SETTINGS.name}
@@ -34,8 +36,8 @@ export default function OwnerHomePage() {
             />
           </div>
           <div>
-            <p className="text-xs text-text-muted">ממשק בעל עסק</p>
-            <h1 className="font-bold text-text-primary">{BUSINESS_SETTINGS.name}</h1>
+            <p className="text-xs text-white/70">ממשק בעל עסק</p>
+            <h1 className="font-extrabold text-white">{BUSINESS_SETTINGS.name}</h1>
           </div>
         </div>
       </div>
@@ -43,23 +45,44 @@ export default function OwnerHomePage() {
       <div className="px-4 py-5 space-y-5">
         {/* Stats row */}
         <div className="grid grid-cols-3 gap-3">
-          <div className="bg-blue-light rounded-xl p-3 text-center">
-            <Calendar size={18} className="text-blue mx-auto mb-1" />
-            <p className="text-xl font-bold text-blue">{todaysAppointments.length}</p>
-            <p className="text-xs text-text-muted">תורים היום</p>
+          <div className="bg-gradient-to-br from-blue-xlight to-blue-light rounded-xl p-4 text-center border border-blue/10">
+            <Calendar size={18} className="text-blue mx-auto mb-1.5" />
+            <p className="text-2xl font-extrabold text-blue">{todaysAppointments.length}</p>
+            <p className="text-xs font-medium text-text-muted">תורים היום</p>
           </div>
-          <div className="bg-green-50 rounded-xl p-3 text-center">
-            <TrendingUp size={18} className="text-status-confirmed mx-auto mb-1" />
-            <p className="text-xl font-bold text-status-confirmed" dir="ltr">
+          <div className="bg-gradient-to-br from-emerald-50 to-green-100 rounded-xl p-4 text-center border border-green-100">
+            <TrendingUp size={18} className="text-status-confirmed mx-auto mb-1.5" />
+            <p className="text-2xl font-extrabold text-status-confirmed" dir="ltr">
               {formatPrice(revenue)}
             </p>
-            <p className="text-xs text-text-muted">הכנסה</p>
+            <p className="text-xs font-medium text-text-muted">הכנסה</p>
           </div>
-          <div className="bg-surface rounded-xl p-3 text-center">
-            <Users size={18} className="text-text-secondary mx-auto mb-1" />
-            <p className="text-xl font-bold text-text-primary">3</p>
-            <p className="text-xs text-text-muted">צוות פעיל</p>
+          <div className="bg-gradient-to-br from-slate-50 to-surface rounded-xl p-4 text-center border border-surface-border">
+            <Users size={18} className="text-text-secondary mx-auto mb-1.5" />
+            <p className="text-2xl font-extrabold text-text-primary">{activeStaffCount}</p>
+            <p className="text-xs font-medium text-text-muted">צוות פעיל</p>
           </div>
+        </div>
+
+        {/* Quick actions */}
+        <div className="flex gap-3">
+          <Button
+            variant="primary"
+            size="md"
+            fullWidth
+            startIcon={<Plus size={18} />}
+            onClick={() => router.push('/book/service')}
+          >
+            + תור חדש
+          </Button>
+          <Button
+            variant="secondary"
+            size="md"
+            fullWidth
+            onClick={() => router.push('/owner/appointments')}
+          >
+            לוח שנה
+          </Button>
         </div>
 
         {/* Today's appointments */}
@@ -77,11 +100,11 @@ export default function OwnerHomePage() {
               {todaysAppointments.map((apt) => (
                 <div
                   key={apt.id}
-                  className="bg-white rounded-xl border border-surface-border shadow-card p-3 flex items-center gap-3"
+                  className="bg-white rounded-xl border border-surface-border shadow-card p-3.5 flex items-center gap-3"
                 >
-                  <div className="flex flex-col items-center text-center w-10 flex-shrink-0">
-                    <Clock size={13} className="text-blue mb-0.5" />
-                    <span className="text-xs font-semibold text-blue" dir="ltr">{apt.time}</span>
+                  <div className="flex flex-col items-center text-center w-10 flex-shrink-0 bg-blue-xlight rounded-lg py-1.5">
+                    <Clock size={12} className="text-blue mb-0.5" />
+                    <span className="text-xs font-bold text-blue" dir="ltr">{apt.time}</span>
                   </div>
                   <div className="w-px h-8 bg-surface-border flex-shrink-0" />
                   <div className="flex-1 min-w-0">

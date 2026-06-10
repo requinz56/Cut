@@ -34,7 +34,7 @@ export default function PageHeader({
     <header
       className={[
         'flex items-center justify-between px-4 py-4 sticky top-0 z-30',
-        transparent ? 'bg-transparent' : 'bg-white border-b border-surface-border',
+        transparent ? 'bg-transparent' : 'bg-white/95 border-b border-surface-border backdrop-blur-sm',
         className,
       ]
         .filter(Boolean)
@@ -44,14 +44,13 @@ export default function PageHeader({
         {showBack && (
           <button
             onClick={handleBack}
-            className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full hover:bg-surface transition-colors tap-highlight-none"
+            className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full bg-surface border border-surface-border shadow-sm hover:bg-blue-light hover:border-blue/30 transition-all tap-highlight-none"
             aria-label="חזרה"
           >
-            {/* In RTL the "back" direction is right → use ChevronRight */}
-            <ChevronRight size={22} className="text-text-primary" />
+            <ChevronRight size={22} className="text-blue" />
           </button>
         )}
-        <h1 className="text-lg font-semibold text-text-primary truncate">{title}</h1>
+        <h1 className="text-lg font-extrabold text-text-primary truncate">{title}</h1>
       </div>
       {action && (
         <button

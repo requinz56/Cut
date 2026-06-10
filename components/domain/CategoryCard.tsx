@@ -17,8 +17,8 @@ export default function CategoryCard({ category, onClick, selected = false, comp
         className={[
           'flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium whitespace-nowrap transition-all tap-highlight-none',
           selected
-            ? 'bg-blue text-white border-blue'
-            : 'bg-white text-text-secondary border-surface-border hover:border-blue hover:text-blue',
+            ? 'bg-blue text-white border-blue shadow-sm'
+            : 'bg-blue-xlight text-blue border-blue/20 hover:bg-blue-light hover:border-blue/40',
         ].join(' ')}
       >
         <span>{category.icon}</span>
@@ -33,11 +33,11 @@ export default function CategoryCard({ category, onClick, selected = false, comp
       className={[
         'flex flex-col items-center justify-center gap-2 p-4 rounded-xl border transition-all tap-highlight-none',
         selected
-          ? 'bg-blue text-white border-blue shadow-card'
-          : 'bg-white text-text-secondary border-surface-border hover:border-blue hover:shadow-card',
+          ? 'bg-gradient-to-br from-blue to-blue-accent text-white border-blue shadow-card'
+          : 'bg-white text-blue border-surface-border hover:bg-blue-xlight hover:border-blue/30 hover:shadow-card',
       ].join(' ')}
     >
-      <span className="text-2xl">{category.icon}</span>
+      <span className="text-3xl">{category.icon}</span>
       <span className="text-xs font-medium">{category.label}</span>
     </button>
   )

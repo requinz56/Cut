@@ -18,9 +18,9 @@ interface ButtonProps {
 
 const variantClasses = {
   primary:
-    'bg-blue text-white hover:bg-blue-dark active:scale-[0.98] shadow-sm',
+    'bg-gradient-to-b from-blue-accent to-blue text-white hover:from-blue hover:to-blue-dark active:scale-[0.98] shadow-sm shadow-blue/25',
   secondary:
-    'bg-blue-light text-blue border border-blue/20 hover:bg-blue/10 active:scale-[0.98]',
+    'bg-blue-xlight text-blue border border-blue/25 hover:bg-blue-light hover:border-blue/40 active:scale-[0.98]',
   ghost:
     'bg-transparent text-blue hover:bg-blue-light active:scale-[0.98]',
   danger:
@@ -28,9 +28,9 @@ const variantClasses = {
 }
 
 const sizeClasses = {
-  sm: 'text-sm px-4 py-2 rounded-md gap-1.5',
-  md: 'text-base px-6 py-3 rounded-md gap-2',
-  lg: 'text-lg px-6 py-4 rounded-lg gap-2',
+  sm: 'text-sm px-4 py-2 min-h-[36px] rounded-lg gap-1.5',
+  md: 'text-base px-6 py-3 min-h-[48px] rounded-full gap-2',
+  lg: 'text-lg px-7 py-4 min-h-[56px] rounded-full gap-2',
 }
 
 export default function Button({
