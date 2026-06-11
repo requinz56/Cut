@@ -17,7 +17,7 @@ export default function StarRating({
   const hasHalf = rating % 1 >= 0.5
 
   return (
-    <div className="flex items-center gap-1" dir="ltr">
+    <div className="flex items-center gap-1" dir="ltr" aria-label={`דירוג: ${rating.toFixed(1)} מתוך 5`}>
       <div className="flex items-center gap-0.5">
         {Array.from({ length: 5 }, (_, i) => (
           <Star

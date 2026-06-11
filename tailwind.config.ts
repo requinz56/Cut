@@ -5,6 +5,7 @@ const config: Config = {
     './app/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
     './context/**/*.{ts,tsx}',
+    './hooks/**/*.{ts,tsx}',
     './lib/**/*.{ts,tsx}',
   ],
   theme: {
@@ -51,7 +52,7 @@ const config: Config = {
         },
       },
       fontFamily: {
-        hebrew: ['Heebo', 'Arial Hebrew', 'Arial', 'sans-serif'],
+        hebrew: ['var(--font-heebo)', 'Arial Hebrew', 'Arial', 'sans-serif'],
       },
       fontSize: {
         xs:   ['0.75rem',   { lineHeight: '1.65' }],

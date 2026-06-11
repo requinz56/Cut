@@ -13,8 +13,6 @@ import {
 } from 'lucide-react'
 import { SAMPLE_NOTIFICATIONS } from '@/lib/mock-data'
 
-const UNREAD_COUNT = SAMPLE_NOTIFICATIONS.filter((n) => !n.read).length
-
 interface NavItem {
   href: string
   label: string
@@ -43,6 +41,7 @@ interface BottomNavProps {
 export default function BottomNav({ variant = 'customer' }: BottomNavProps) {
   const pathname = usePathname()
   const tabs = variant === 'owner' ? OWNER_TABS : CUSTOMER_TABS
+  const unreadCount = SAMPLE_NOTIFICATIONS.filter((n) => !n.read).length
 
   function isActive(href: string) {
     if (href === '/' || href === '/owner') return pathname === href
@@ -75,9 +74,9 @@ export default function BottomNav({ variant = 'customer' }: BottomNavProps) {
                 active ? 'bg-blue-xlight' : '',
               ].join(' ')}>
                 {tab.icon}
-                {variant === 'customer' && tab.href === '/notifications' && UNREAD_COUNT > 0 && (
+                {variant === 'customer' && tab.href === '/notifications' && unreadCount > 0 && (
                   <span className="absolute -top-0.5 -end-0.5 min-w-[16px] h-4 px-1 flex items-center justify-center rounded-full bg-red-500 text-white text-[9px] font-bold leading-none">
-                    {UNREAD_COUNT}
+                    {unreadCount}
                   </span>
                 )}
               </span>

@@ -1,0 +1,12 @@
+{
+  "name": "TOR5 — הזמנת תורים",
+  "short_name": "TOR5",
+  "description": "פלטפורמת הזמנת תורים לעסקים ישראליים",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F4F8FF",
+  "theme_color": "#1B4FD8",
+  "lang": "he",
+  "dir": "rtl",
+  "icons": []
+}
