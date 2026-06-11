@@ -88,7 +88,7 @@
   /* Decorative shine blob for hero section */
   .hero-shine {
     position: absolute;
-    inset-inline-end: -20px;
+    inset-inline-start: -20px;
     top: -30px;
     width: 180px;
     height: 180px;

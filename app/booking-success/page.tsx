@@ -29,8 +29,8 @@ export default function BookingSuccessPage() {
     <AppShell showBottomNav={false}>
       <div className="flex flex-col items-center px-6 pt-14 pb-8 text-center">
         {/* Success icon */}
-        <div className="w-20 h-20 rounded-full bg-green-50 ring-8 ring-green-50/60 flex items-center justify-center mb-6">
-          <CheckCircle size={42} className="text-status-confirmed" strokeWidth={1.75} />
+        <div className="w-20 h-20 rounded-full bg-blue ring-8 ring-blue/15 flex items-center justify-center mb-6">
+          <CheckCircle size={42} className="text-white" strokeWidth={1.75} />
         </div>
 
         <h1 className="text-2xl font-extrabold text-text-primary mb-2">התור אושר!</h1>
@@ -41,24 +41,24 @@ export default function BookingSuccessPage() {
         {/* Summary */}
         <div className="w-full bg-white rounded-2xl border border-surface-border/70 shadow-[0_2px_16px_rgba(37,99,235,0.07)] overflow-hidden mb-7 text-start">
           <div className="px-4 py-3 border-b border-surface-border/60 flex items-center justify-between">
-            <span className="text-xs text-text-muted font-medium">עסק</span>
+            <span className="text-xs text-text-secondary font-semibold">עסק</span>
             <span className="text-sm font-bold text-text-primary">{provider.businessName}</span>
           </div>
           <div className="px-4 py-3 border-b border-surface-border/60 flex items-center justify-between">
-            <span className="text-xs text-text-muted font-medium">שירות</span>
+            <span className="text-xs text-text-secondary font-semibold">שירות</span>
             <span className="text-sm font-semibold text-text-primary">{service.name}</span>
           </div>
           <div className="px-4 py-3 border-b border-surface-border/60 flex items-center justify-between">
-            <span className="text-xs text-text-muted font-medium">תאריך</span>
+            <span className="text-xs text-text-secondary font-semibold">תאריך</span>
             <span className="text-sm font-semibold text-text-primary">{formatDateLong(draft.date!)}</span>
           </div>
           <div className="px-4 py-3 border-b border-surface-border/60 flex items-center justify-between">
-            <span className="text-xs text-text-muted font-medium">שעה</span>
+            <span className="text-xs text-text-secondary font-semibold">שעה</span>
             <span className="text-sm font-semibold text-text-primary" dir="ltr">{draft.time}</span>
           </div>
-          <div className="px-4 py-3.5 bg-blue-xlight flex items-center justify-between">
-            <span className="text-sm font-bold text-text-primary">סה״כ לתשלום</span>
-            <span className="text-lg font-extrabold text-blue" dir="ltr">{formatPrice(service.priceILS)}</span>
+          <div className="px-4 py-3.5 bg-blue flex items-center justify-between">
+            <span className="text-sm font-bold text-white">סה״כ לתשלום</span>
+            <span className="text-lg font-extrabold text-white" dir="ltr">{formatPrice(service.priceILS)}</span>
           </div>
         </div>
 

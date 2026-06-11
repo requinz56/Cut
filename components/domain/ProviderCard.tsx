@@ -38,7 +38,7 @@ export default function ProviderCard({
           />
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-[11px] text-blue font-bold uppercase tracking-[0] mb-0.5 opacity-80">{category?.label}</p>
+          <p className="text-[10px] font-bold text-blue bg-blue-xlight px-2 py-0.5 rounded-full inline-block mb-1">{category?.label}</p>
           <h3 className="font-bold text-text-primary text-sm leading-tight mb-1">
             {provider.businessName}
           </h3>
@@ -96,7 +96,7 @@ export default function ProviderCard({
           </div>
         )}
         <div className="absolute bottom-0 inset-x-0 p-3">
-          <p className="text-[10px] text-white/70 font-semibold mb-0.5">{category?.label}</p>
+          <p className="text-[10px] text-white/80 font-semibold mb-0.5">{category?.label}</p>
           <h3 className="font-bold text-white text-sm leading-tight">{provider.businessName}</h3>
         </div>
       </div>

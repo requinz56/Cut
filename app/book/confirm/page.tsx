@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { Calendar, Clock, MapPin } from 'lucide-react'
+import { Calendar, Clock, MapPin, Info } from 'lucide-react'
 import AppShell from '@/components/layout/AppShell'
 import PageHeader from '@/components/layout/PageHeader'
 import StepIndicator from '@/components/ui/StepIndicator'
@@ -59,7 +59,7 @@ export default function ConfirmPage() {
           <div className="px-4 py-3.5 border-b border-surface-border/60 bg-surface/40">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-[11px] text-text-muted font-medium mb-0.5">שירות נבחר</p>
+                <p className="text-xs text-text-secondary font-semibold mb-0.5">שירות נבחר</p>
                 <p className="font-bold text-text-primary text-sm">{service.name}</p>
                 <p className="text-xs text-text-secondary mt-0.5">
                   {formatDuration(service.durationMins)}
@@ -93,9 +93,12 @@ export default function ConfirmPage() {
         </div>
 
         {/* Policy note */}
-        <p className="text-[11px] text-text-muted text-center px-4 leading-relaxed bg-surface/60 rounded-xl py-2.5 border border-surface-border/50">
-          ביטול עד 24 שעות לפני התור ללא חיוב. לאחר מכן עלולה להיגבות עמלת ביטול.
-        </p>
+        <div className="flex items-start justify-center gap-1.5 px-2">
+          <Info size={13} className="text-text-muted flex-shrink-0 mt-0.5" />
+          <p className="text-[11px] text-text-muted leading-relaxed">
+            ביטול עד 24 שעות לפני התור ללא חיוב. לאחר מכן עלולה להיגבות עמלת ביטול.
+          </p>
+        </div>
 
         {/* Confirm button */}
         <Button
